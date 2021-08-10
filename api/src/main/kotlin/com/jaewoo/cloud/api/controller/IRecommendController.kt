@@ -2,6 +2,7 @@ package com.jaewoo.cloud.api.controller
 
 import com.jaewoo.cloud.api.dto.CompositeDto
 import com.jaewoo.cloud.api.dto.ProductDto
+import com.jaewoo.cloud.api.dto.RecommendDto
 import org.springframework.web.bind.annotation.DeleteMapping
 import org.springframework.web.bind.annotation.GetMapping
 import org.springframework.web.bind.annotation.PathVariable
@@ -9,12 +10,12 @@ import org.springframework.web.bind.annotation.PostMapping
 
 interface IRecommendController {
 
-    @PostMapping("/products")
-    fun createProduct(body:ProductDto)
+    @PostMapping("/recommends")
+    fun createRecommend(body:RecommendDto)
 
-    @GetMapping("/products/{productId}")
-    fun getProduct(@PathVariable productId : Int): ProductDto
+    @GetMapping("/recommends/{recommendId}")
+    fun getRecommend(@PathVariable recommendId : Int): RecommendDto
 
-    @DeleteMapping("/products/{productId}")
-    fun deleteProduct(@PathVariable productId : Int): ProductDto
+    @DeleteMapping("/recommends/{productId}")
+    fun deleteRecommend(@PathVariable recommendId : Int): RecommendDto
 }
