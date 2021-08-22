@@ -15,5 +15,5 @@ interface ICompositeController {
     fun getComposite(@PathVariable productId : Int): CompositeDto
 
     @DeleteMapping("/composites/{productId}")
-    fun deleteComposite(@PathVariable productId : Int): CompositeDto
+    fun deleteComposite(@PathVariable productId : Int)
 }

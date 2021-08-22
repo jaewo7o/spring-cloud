@@ -29,6 +29,8 @@ subprojects {
         implementation(kotlin("stdlib"))
         implementation("org.springframework.boot:spring-boot-starter-webflux:${springBootVersion}")
         implementation("org.springframework.boot:spring-boot-starter-test:${springBootVersion}")
+
+        testImplementation("org.mockito:mockito-inline:2.13.0")
     }
 
     tasks {
@@ -46,6 +48,10 @@ subprojects {
                 jvmTarget = "1.8"
             }
         }
+    }
+
+    tasks.withType<Test> {
+        useJUnitPlatform()
     }
 }
 
