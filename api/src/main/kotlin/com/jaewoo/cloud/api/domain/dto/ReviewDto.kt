@@ -1,4 +1,4 @@
-package com.jaewoo.cloud.api.dto
+package com.jaewoo.cloud.api.domain.dto
 
 data class ReviewDto(
     val productId: Int,

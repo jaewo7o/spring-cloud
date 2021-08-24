@@ -26,7 +26,10 @@ subprojects {
     }
 
     dependencies {
+        // Kotlin Dependency
         implementation(kotlin("stdlib"))
+        implementation("org.jetbrains.kotlin:kotlin-reflect")
+
         implementation("org.springframework.boot:spring-boot-starter-webflux:${springBootVersion}")
         implementation("org.springframework.boot:spring-boot-starter-test:${springBootVersion}")
 

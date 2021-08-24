@@ -4,9 +4,9 @@ import com.fasterxml.jackson.databind.ObjectMapper
 import com.jaewoo.cloud.api.controller.IProductController
 import com.jaewoo.cloud.api.controller.IRecommendController
 import com.jaewoo.cloud.api.controller.IReviewController
-import com.jaewoo.cloud.api.dto.ProductDto
-import com.jaewoo.cloud.api.dto.RecommendDto
-import com.jaewoo.cloud.api.dto.ReviewDto
+import com.jaewoo.cloud.api.domain.dto.ProductDto
+import com.jaewoo.cloud.api.domain.dto.RecommendDto
+import com.jaewoo.cloud.api.domain.dto.ReviewDto
 import com.jaewoo.cloud.api.error.exception.InvalidInputException
 import com.jaewoo.cloud.api.error.exception.NotfoundException
 import org.springframework.beans.factory.annotation.Value
@@ -17,7 +17,6 @@ import org.springframework.stereotype.Component
 import org.springframework.web.client.HttpClientErrorException
 import org.springframework.web.client.RestTemplate
 import java.lang.RuntimeException
-import java.util.*
 
 @Component
 class IntegrateModule(

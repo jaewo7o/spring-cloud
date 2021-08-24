@@ -1,8 +1,6 @@
 package com.jaewoo.cloud.api.controller
 
-import com.jaewoo.cloud.api.dto.CompositeDto
-import com.jaewoo.cloud.api.dto.ProductDto
-import com.jaewoo.cloud.api.dto.ReviewDto
+import com.jaewoo.cloud.api.domain.dto.ReviewDto
 import org.springframework.web.bind.annotation.*
 
 interface IReviewController {

@@ -1,8 +1,8 @@
 package com.jaewoo.cloud.composite.controller
 
-import com.jaewoo.cloud.api.dto.ProductDto
-import com.jaewoo.cloud.api.dto.RecommendDto
-import com.jaewoo.cloud.api.dto.ReviewDto
+import com.jaewoo.cloud.api.domain.dto.ProductDto
+import com.jaewoo.cloud.api.domain.dto.RecommendDto
+import com.jaewoo.cloud.api.domain.dto.ReviewDto
 import com.jaewoo.cloud.api.error.exception.InvalidInputException
 import com.jaewoo.cloud.api.error.exception.NotfoundException
 import org.junit.jupiter.api.BeforeEach
@@ -13,6 +13,7 @@ import org.springframework.boot.test.autoconfigure.web.reactive.AutoConfigureWeb
 import org.springframework.boot.test.context.SpringBootTest
 import org.springframework.boot.test.context.SpringBootTest.WebEnvironment.RANDOM_PORT
 import org.springframework.boot.test.mock.mockito.MockBean
+import org.springframework.http.HttpStatus
 import org.springframework.http.MediaType
 import org.springframework.test.web.reactive.server.WebTestClient
 
@@ -66,11 +67,36 @@ internal class CompositeControllerTest {
     }
 
     @Test
-    fun createComposite() {
+    fun `Composite 단건조회 - NOT FOUND`() {
+        val url = "/composites/$PRODUCT_ID_NOT_FOUND"
+        val result = client.get()
+                .uri(url)
+                .accept(MediaType.APPLICATION_JSON)
+                .exchange()
+                .expectStatus().isNotFound
+                .expectHeader().contentType(MediaType.APPLICATION_JSON)
+                .expectBody()
+                .jsonPath("$.path").isEqualTo(url)
+                .jsonPath("$.message").isEqualTo("No productId : $PRODUCT_ID_NOT_FOUND")
+                .returnResult().toString()
+
+        println(result)
     }
 
-
     @Test
-    fun deleteComposite() {
+    fun `Composite 단건조회 - INVALID`() {
+        val url = "/composites/$PRODUCT_ID_INVALID"
+        val result = client.get()
+            .uri(url)
+            .accept(MediaType.APPLICATION_JSON)
+            .exchange()
+            .expectStatus().isEqualTo(HttpStatus.UNPROCESSABLE_ENTITY)
+            .expectHeader().contentType(MediaType.APPLICATION_JSON)
+            .expectBody()
+            .jsonPath("$.path").isEqualTo(url)
+            .jsonPath("$.message").isEqualTo("Invalid productId : $PRODUCT_ID_INVALID")
+            .returnResult().toString()
+
+        println(result)
     }
 }
