@@ -54,7 +54,7 @@ internal class ProductControllerTest {
         println(result)
     }
 
-    @Test
+    //@Test
     fun createProduct() {
         val buildProductDto = ProductBuilder().buildProductDto()
 

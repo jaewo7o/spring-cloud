@@ -16,7 +16,6 @@ import org.springframework.http.HttpStatus
 import org.springframework.stereotype.Component
 import org.springframework.web.client.HttpClientErrorException
 import org.springframework.web.client.RestTemplate
-import java.lang.RuntimeException
 
 @Component
 class IntegrateModule(
@@ -24,39 +23,39 @@ class IntegrateModule(
     val objectMapper: ObjectMapper,
 
     @Value("\${app.product.protocol}")
-    val productProtocol : String,
+    val productProtocol: String,
     @Value("\${app.product.host}")
-    val productHost : String,
+    val productHost: String,
     @Value("\${app.product.port}")
-    val productPort : String,
+    val productPort: String,
     @Value("\${app.product.service}")
-    val productService : String,
+    val productService: String,
 
     @Value("\${app.recommend.protocol}")
-    val recommendProtocol : String,
+    val recommendProtocol: String,
     @Value("\${app.recommend.host}")
-    val recommendHost : String,
+    val recommendHost: String,
     @Value("\${app.recommend.port}")
-    val recommendPort : String,
+    val recommendPort: String,
     @Value("\${app.recommend.service}")
-    val recommendService : String,
+    val recommendService: String,
 
     @Value("\${app.review.protocol}")
-    val reviewProtocol : String,
+    val reviewProtocol: String,
     @Value("\${app.review.host}")
-    val reviewHost : String,
+    val reviewHost: String,
     @Value("\${app.review.port}")
-    val reviewPort : String,
+    val reviewPort: String,
     @Value("\${app.review.service}")
-    val reviewService : String
+    val reviewService: String
 ) : IProductController, IRecommendController, IReviewController {
 
     val productServiceUrl = "$productProtocol://$productHost:$productPort/$productService"
     val recommendServiceUrl = "$recommendProtocol://$recommendHost:$recommendPort/$recommendService"
     val reviewServiceUrl = "$reviewProtocol://$reviewHost:$reviewPort/$reviewService"
 
-    fun convertHttpClientException(ex:HttpClientErrorException) : RuntimeException {
-        when(ex.statusCode) {
+    fun convertHttpClientException(ex: HttpClientErrorException): RuntimeException {
+        when (ex.statusCode) {
             HttpStatus.NOT_FOUND -> return NotfoundException(ex.responseBodyAsString)
             HttpStatus.UNPROCESSABLE_ENTITY -> return InvalidInputException(ex.responseBodyAsString)
             else -> {
@@ -67,15 +66,17 @@ class IntegrateModule(
         }
     }
 
-    override fun createProduct(body: ProductDto) {
+    override fun createProduct(dto: ProductDto): ProductDto? {
         try {
             val url = productServiceUrl
-            val product = restTemplate.postForObject(url, body, ProductDto::class.java)
+            val product = restTemplate.postForObject(url, dto, ProductDto::class.java)
             println("#####################################################################")
             println("createProduct: $url")
             println("product: $product")
             println("#####################################################################")
-        } catch (ex : HttpClientErrorException) {
+
+            return product
+        } catch (ex: HttpClientErrorException) {
             throw convertHttpClientException(ex)
         }
     }
@@ -89,7 +90,7 @@ class IntegrateModule(
             println("product: ${product.toString()}")
             println("#####################################################################")
             return product
-        } catch (ex : HttpClientErrorException) {
+        } catch (ex: HttpClientErrorException) {
             throw convertHttpClientException(ex)
         }
     }
@@ -102,7 +103,7 @@ class IntegrateModule(
             println("getProduct: $url")
             println("productId: $productId")
             println("#####################################################################")
-        } catch (ex : HttpClientErrorException) {
+        } catch (ex: HttpClientErrorException) {
             throw convertHttpClientException(ex)
         }
     }
@@ -115,7 +116,7 @@ class IntegrateModule(
             println("createRecommend: $url")
             println("recommend: $recommend")
             println("#####################################################################")
-        } catch (ex : HttpClientErrorException) {
+        } catch (ex: HttpClientErrorException) {
             throw convertHttpClientException(ex)
         }
     }
@@ -123,14 +124,18 @@ class IntegrateModule(
     override fun getRecommends(productId: Int): List<RecommendDto> {
         try {
             val url = "$recommendServiceUrl?productId=$productId"
-            val recommends = restTemplate.exchange(url, HttpMethod.GET, null, object : ParameterizedTypeReference<List<RecommendDto>>(){}).body as List<RecommendDto>
+            val recommends = restTemplate.exchange(
+                url,
+                HttpMethod.GET,
+                null,
+                object : ParameterizedTypeReference<List<RecommendDto>>() {}).body as List<RecommendDto>
             println("#####################################################################")
             println("createRecommend: $url")
             println("prductId : $productId, recommend size : ${recommends.size}")
             println("#####################################################################")
 
             return recommends
-        } catch (ex : HttpClientErrorException) {
+        } catch (ex: HttpClientErrorException) {
             return emptyList()
         }
     }
@@ -143,7 +148,7 @@ class IntegrateModule(
             println("getProduct: $url")
             println("productId: $productId")
             println("#####################################################################")
-        } catch (ex : HttpClientErrorException) {
+        } catch (ex: HttpClientErrorException) {
             throw convertHttpClientException(ex)
         }
     }
@@ -156,7 +161,7 @@ class IntegrateModule(
             println("createReview: $url")
             println("review: $review")
             println("#####################################################################")
-        } catch (ex : HttpClientErrorException) {
+        } catch (ex: HttpClientErrorException) {
             throw convertHttpClientException(ex)
         }
     }
@@ -164,14 +169,18 @@ class IntegrateModule(
     override fun getReviews(productId: Int): List<ReviewDto> {
         try {
             val url = "$reviewServiceUrl?productId=$productId"
-            val reviews = restTemplate.exchange(url, HttpMethod.GET, null, object : ParameterizedTypeReference<List<ReviewDto>>(){}).body as List<ReviewDto>
+            val reviews = restTemplate.exchange(
+                url,
+                HttpMethod.GET,
+                null,
+                object : ParameterizedTypeReference<List<ReviewDto>>() {}).body as List<ReviewDto>
             println("#####################################################################")
             println("getReviews: $url")
             println("prductId : $productId, review size : ${reviews.size}")
             println("#####################################################################")
 
             return reviews
-        } catch (ex : HttpClientErrorException) {
+        } catch (ex: HttpClientErrorException) {
             return emptyList()
         }
     }
@@ -184,7 +193,7 @@ class IntegrateModule(
             println("deleteReviews: $url")
             println("productId: $productId")
             println("#####################################################################")
-        } catch (ex : HttpClientErrorException) {
+        } catch (ex: HttpClientErrorException) {
             throw convertHttpClientException(ex)
         }
     }

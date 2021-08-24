@@ -9,11 +9,11 @@ import org.springframework.web.bind.annotation.PostMapping
 interface IProductController {
 
     @PostMapping("/products")
-    fun createProduct(body:ProductDto): ProductDto
+    fun createProduct(dto: ProductDto): ProductDto?
 
     @GetMapping("/products/{productId}")
-    fun getProduct(@PathVariable productId : Int): ProductDto?
+    fun getProduct(@PathVariable productId: Int): ProductDto?
 
     @DeleteMapping("/products/{productId}")
-    fun deleteProduct(@PathVariable productId : Int)
+    fun deleteProduct(@PathVariable productId: Int)
 }
