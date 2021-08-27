@@ -30,8 +30,12 @@ subprojects {
         implementation(kotlin("stdlib"))
         implementation("org.jetbrains.kotlin:kotlin-reflect")
 
+        // Spring Boot
         implementation("org.springframework.boot:spring-boot-starter-webflux:${springBootVersion}")
         implementation("org.springframework.boot:spring-boot-starter-test:${springBootVersion}")
+
+        // jackson library
+        implementation("com.fasterxml.jackson.module:jackson-module-kotlin:2.9.+")
 
         testImplementation("org.mockito:mockito-inline:2.13.0")
     }

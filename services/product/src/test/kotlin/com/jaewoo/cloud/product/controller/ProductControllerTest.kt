@@ -11,7 +11,7 @@ import org.springframework.boot.test.autoconfigure.web.reactive.AutoConfigureWeb
 import org.springframework.boot.test.context.SpringBootTest
 import org.springframework.http.MediaType
 import org.springframework.test.web.reactive.server.WebTestClient
-import reactor.core.publisher.Flux.just
+import reactor.core.publisher.Mono
 
 @SpringBootTest(
     webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT
@@ -54,22 +54,22 @@ internal class ProductControllerTest {
         println(result)
     }
 
-    //@Test
+    @Test
     fun createProduct() {
-        val buildProductDto = ProductBuilder().buildProductDto()
+        val dto = ProductBuilder().buildProductDto()
 
         val url = "/products"
         val result = client.post()
             .uri(url)
             .accept(MediaType.APPLICATION_JSON)
-            .body(just(buildProductDto), ProductDto::class.java)
+            .body(Mono.just(dto), ProductDto::class.java)
             .exchange()
             .expectStatus().isOk
             .expectHeader().contentType(MediaType.APPLICATION_JSON)
             .expectBody()
-//            .jsonPath("$.productId").isEqualTo(productId)
-//            .jsonPath("$.productName").isEqualTo(productName)
-//            .jsonPath("$.productInfo").isEqualTo(productInfo)
+            .jsonPath("$.productId").isEqualTo(dto.productId)
+            .jsonPath("$.productName").isEqualTo(dto.productName)
+            .jsonPath("$.productInfo").isEqualTo(dto.productInfo!!)
             .returnResult().toString()
 
         println(result)
