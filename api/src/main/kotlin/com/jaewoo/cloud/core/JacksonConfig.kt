@@ -7,11 +7,11 @@ import org.springframework.context.annotation.Configuration
 import org.springframework.context.annotation.Primary
 
 @Configuration
-open class JacksonConfig {
+class JacksonConfig {
 
     @Bean
     @Primary
-    open fun objectMapper(): ObjectMapper {
+    fun objectMapper(): ObjectMapper {
         val objectMapper = ObjectMapper()
         objectMapper.registerModule(KotlinModule())
 

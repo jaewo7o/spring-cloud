@@ -11,12 +11,12 @@ import org.springframework.web.client.RestTemplate
 @EnableMongoRepositories
 @ComponentScan("com.jaewoo.cloud")
 @SpringBootApplication
-open class Application(
+class Application(
     val mongoTemplate: MongoProperties
 ) {
 
     @Bean
-    open fun restTemplate() = RestTemplate()
+    fun restTemplate() = RestTemplate()
 
 //    @EventListener(ContextRefreshedEvent.class)
 //    fun initIndicesAfterStartup() {
