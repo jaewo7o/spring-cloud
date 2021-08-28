@@ -84,6 +84,7 @@ project(":services:product") {
     dependencies {
         implementation(project(":api"))
         implementation("org.springframework.boot:spring-boot-starter-actuator:${springBootVersion}")
+        implementation("org.springframework.boot:spring-boot-starter-data-mongodb:${springBootVersion}")
     }
 }
 
