@@ -8,12 +8,12 @@ import javax.persistence.Table
 
 @Entity
 @Table(name = "reviews")
-class Review(
-    private val productId: Int,
-    private val reviewId: Int,
-    private val author: String,
-    private val subject: String,
-    private val content: String
+public class Review(
+    var productId: Int,
+    var reviewId: Int,
+    var author: String,
+    var subject: String,
+    var content: String
 ) {
     @Id
     @GeneratedValue

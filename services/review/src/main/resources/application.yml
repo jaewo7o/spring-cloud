@@ -12,8 +12,6 @@ spring:
         url: jdbc:mariadb://localhost/review-db
         username: user01
         password: user01
-        hikari:
-            initializationFailTimeout: 60000
 logging:
     level:
         root: INFO

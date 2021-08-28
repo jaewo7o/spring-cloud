@@ -5,7 +5,13 @@ docker run -d --rm \
       --net spring-cloud_net \
       -p 3306:3306 \
       -v ~/dev/data/maria/:/data/db \
+      -e TZ=Asia/Seoul \
+      -e MYSQL_HOST=localhost \
+      -e MYSQL_PORT=3306 \
       -e MYSQL_ROOT_PASSWORD=mariadb \
+      -e MYSQL_DATABASE=review-db \
+      -e MYSQL_USER=user01 \
+      -e MYSQL_PASSWORD=user01 \
       mariadb
 
 docker run -d --rm \
