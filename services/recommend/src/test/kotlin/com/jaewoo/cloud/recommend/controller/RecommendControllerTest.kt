@@ -1,6 +1,6 @@
 package com.jaewoo.cloud.recommend.controller
 
-import com.jaewoo.cloud.api.domain.dto.RecommendDto
+import com.jaewoo.cloud.api.dto.RecommendDto
 import com.jaewoo.cloud.recommend.builder.buildRecommend
 import com.jaewoo.cloud.recommend.builder.buildRecommendDto
 import com.jaewoo.cloud.recommend.repository.RecommendRepository

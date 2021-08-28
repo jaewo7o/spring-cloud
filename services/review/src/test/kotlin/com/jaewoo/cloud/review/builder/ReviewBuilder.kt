@@ -1,7 +1,7 @@
 package com.jaewoo.cloud.review.builder
 
-import com.jaewoo.cloud.api.domain.dto.ReviewDto
-import com.jaewoo.cloud.api.domain.entity.Review
+import com.jaewoo.cloud.api.dto.ReviewDto
+import com.jaewoo.cloud.review.entity.Review
 
 
 fun buildReviewDto(

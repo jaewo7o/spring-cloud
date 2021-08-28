@@ -1,6 +1,6 @@
 package com.jaewoo.cloud.product.repository
 
-import com.jaewoo.cloud.api.domain.entity.Product
+import com.jaewoo.cloud.product.entity.Product
 import org.springframework.data.repository.PagingAndSortingRepository
 
 interface ProductRepository : PagingAndSortingRepository<Product, String> {

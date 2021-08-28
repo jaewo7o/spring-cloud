@@ -7,7 +7,6 @@ import org.springframework.context.annotation.ComponentScan
 import org.springframework.data.jpa.repository.config.EnableJpaRepositories
 import org.springframework.web.client.RestTemplate
 
-@EnableJpaRepositories(basePackages = ["com.jaewoo.cloud"])
 @ComponentScan("com.jaewoo.cloud")
 @SpringBootApplication
 open class Application {

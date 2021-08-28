@@ -1,6 +1,6 @@
-package com.jaewoo.cloud.api.domain.entity
+package com.jaewoo.cloud.product.entity
 
-import com.jaewoo.cloud.api.domain.dto.ProductDto
+import com.jaewoo.cloud.api.dto.ProductDto
 import org.springframework.data.annotation.Id
 import org.springframework.data.mongodb.core.index.Indexed
 import org.springframework.data.mongodb.core.mapping.Document
@@ -17,9 +17,6 @@ class Product(
 ) {
     @Id
     lateinit var id: String
-
-//    @Version
-//    lateinit var version: Version
 
     fun toDto() = ProductDto(
         productId = this.productId,

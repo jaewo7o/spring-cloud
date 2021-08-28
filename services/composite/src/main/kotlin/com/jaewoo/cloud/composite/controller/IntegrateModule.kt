@@ -4,9 +4,9 @@ import com.fasterxml.jackson.databind.ObjectMapper
 import com.jaewoo.cloud.api.controller.IProductController
 import com.jaewoo.cloud.api.controller.IRecommendController
 import com.jaewoo.cloud.api.controller.IReviewController
-import com.jaewoo.cloud.api.domain.dto.ProductDto
-import com.jaewoo.cloud.api.domain.dto.RecommendDto
-import com.jaewoo.cloud.api.domain.dto.ReviewDto
+import com.jaewoo.cloud.api.dto.ProductDto
+import com.jaewoo.cloud.api.dto.RecommendDto
+import com.jaewoo.cloud.api.dto.ReviewDto
 import com.jaewoo.cloud.api.error.exception.InvalidInputException
 import com.jaewoo.cloud.api.error.exception.NotfoundException
 import org.springframework.beans.factory.annotation.Value
@@ -108,14 +108,16 @@ class IntegrateModule(
         }
     }
 
-    override fun createRecommend(body: RecommendDto) {
+    override fun createRecommend(dto: RecommendDto): RecommendDto? {
         try {
             val url = recommendServiceUrl
-            val recommend = restTemplate.postForObject(url, body, RecommendDto::class.java)
+            val recommendDto = restTemplate.postForObject(url, dto, RecommendDto::class.java)
             println("#####################################################################")
             println("createRecommend: $url")
-            println("recommend: $recommend")
+            println("recommendDto: $recommendDto")
             println("#####################################################################")
+
+            return recommendDto
         } catch (ex: HttpClientErrorException) {
             throw convertHttpClientException(ex)
         }
@@ -153,14 +155,16 @@ class IntegrateModule(
         }
     }
 
-    override fun createReview(body: ReviewDto) {
+    override fun createReview(dto: ReviewDto): ReviewDto? {
         try {
             val url = reviewServiceUrl
-            val review = restTemplate.postForObject(url, body, ReviewDto::class.java)
+            val review = restTemplate.postForObject(url, dto, ReviewDto::class.java)
             println("#####################################################################")
             println("createReview: $url")
             println("review: $review")
             println("#####################################################################")
+
+            return review
         } catch (ex: HttpClientErrorException) {
             throw convertHttpClientException(ex)
         }

@@ -1,6 +1,6 @@
 package com.jaewoo.cloud.review.repository
 
-import com.jaewoo.cloud.api.domain.entity.Review
+import com.jaewoo.cloud.review.entity.Review
 import org.springframework.data.repository.CrudRepository
 import org.springframework.stereotype.Repository
 

@@ -1,12 +1,12 @@
 package com.jaewoo.cloud.api.controller
 
-import com.jaewoo.cloud.api.domain.dto.ReviewDto
+import com.jaewoo.cloud.api.dto.ReviewDto
 import org.springframework.web.bind.annotation.*
 
 interface IReviewController {
 
     @PostMapping("/reviews")
-    fun createReview(dto:ReviewDto) : ReviewDto
+    fun createReview(@RequestBody dto: ReviewDto) : ReviewDto?
 
     @GetMapping("/reviews")
     fun getReviews(@RequestParam productId : Int): List<ReviewDto>

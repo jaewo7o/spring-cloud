@@ -1,8 +1,9 @@
 package com.jaewoo.cloud.recommend.controller
 
 import com.jaewoo.cloud.api.controller.IRecommendController
-import com.jaewoo.cloud.api.domain.dto.RecommendDto
+import com.jaewoo.cloud.api.dto.RecommendDto
 import com.jaewoo.cloud.api.error.exception.InvalidInputException
+import com.jaewoo.cloud.recommend.entity.Recommend
 import com.jaewoo.cloud.recommend.repository.RecommendRepository
 import org.springframework.web.bind.annotation.RestController
 
@@ -11,7 +12,14 @@ class RecommendController(
     private val recommendRepository: RecommendRepository
 ) : IRecommendController {
     override fun createRecommend(dto: RecommendDto): RecommendDto {
-        val saveRecommend = recommendRepository.save(dto.toEntity())
+        val saveRecommend = recommendRepository.save(
+            Recommend(
+                dto.productId,
+                dto.recommendId,
+                dto.author,
+                dto.content
+            )
+        )
         return saveRecommend.toDto()
     }
 

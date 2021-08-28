@@ -1,10 +1,10 @@
 package com.jaewoo.cloud.composite.controller
 
 import com.jaewoo.cloud.api.controller.ICompositeController
-import com.jaewoo.cloud.api.domain.dto.CompositeDto
-import com.jaewoo.cloud.api.domain.dto.ProductDto
-import com.jaewoo.cloud.api.domain.dto.RecommendDto
-import com.jaewoo.cloud.api.domain.dto.ReviewDto
+import com.jaewoo.cloud.api.dto.CompositeDto
+import com.jaewoo.cloud.api.dto.ProductDto
+import com.jaewoo.cloud.api.dto.RecommendDto
+import com.jaewoo.cloud.api.dto.ReviewDto
 import com.jaewoo.cloud.api.error.exception.NotfoundException
 import org.springframework.web.bind.annotation.RestController
 

@@ -1,24 +1,18 @@
-package com.jaewoo.cloud.api.domain.entity
+package com.jaewoo.cloud.review.entity
 
-import com.jaewoo.cloud.api.domain.dto.ReviewDto
-import org.springframework.data.annotation.Id
-import javax.persistence.Entity
-import javax.persistence.GeneratedValue
-import javax.persistence.Table
+import com.jaewoo.cloud.api.dto.ReviewDto
+import javax.persistence.*
 
 @Entity
 @Table(name = "reviews")
-public class Review(
+class Review(
     var productId: Int,
+    @Id
     var reviewId: Int,
     var author: String,
     var subject: String,
     var content: String
 ) {
-    @Id
-    @GeneratedValue
-    lateinit var id: String
-
     fun toDto() = ReviewDto(
         productId = productId,
         reviewId = reviewId,

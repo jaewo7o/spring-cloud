@@ -1,7 +1,8 @@
 package com.jaewoo.cloud.product.controller
 
-import com.jaewoo.cloud.api.domain.dto.ProductDto
-import com.jaewoo.cloud.product.builder.ProductBuilder
+import com.jaewoo.cloud.api.dto.ProductDto
+import com.jaewoo.cloud.product.builder.buildProduct
+import com.jaewoo.cloud.product.builder.buildProductDto
 import com.jaewoo.cloud.product.repository.ProductRepository
 import org.assertj.core.api.Assertions
 import org.junit.jupiter.api.BeforeEach
@@ -32,8 +33,7 @@ internal class ProductControllerTest {
 
     @Test
     fun `Product 단건조회`() {
-        val buildProduct = ProductBuilder().buildProduct()
-        val saveProduct = productRepository.save(buildProduct)
+        val saveProduct = productRepository.save(buildProduct())
 
         val url = "/products/${saveProduct.productId}"
         val result = client.get()
@@ -53,7 +53,7 @@ internal class ProductControllerTest {
 
     @Test
     fun `Product 단건 저장`() {
-        val dto = ProductBuilder().buildProductDto()
+        val dto = buildProductDto()
 
         val url = "/products"
         val result = client.post()
@@ -74,17 +74,16 @@ internal class ProductControllerTest {
 
     @Test
     fun `Product 단건 삭제`() {
-        val dto = ProductBuilder().buildProductDto()
-        productRepository.save(dto.toEntity())
+        val saveProduct = productRepository.save(buildProduct())
 
-        val url = "/products/${dto.productId}"
+        val url = "/products/${saveProduct.productId}"
         client.delete()
             .uri(url)
             .accept(MediaType.APPLICATION_JSON)
             .exchange()
             .expectStatus().isOk
 
-        val findByProductId = productRepository.findByProductId(dto.productId)
+        val findByProductId = productRepository.findByProductId(saveProduct.productId)
         Assertions.assertThat(findByProductId).isNull()
     }
 }

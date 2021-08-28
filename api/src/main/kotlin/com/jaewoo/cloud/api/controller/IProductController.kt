@@ -1,6 +1,6 @@
 package com.jaewoo.cloud.api.controller
 
-import com.jaewoo.cloud.api.domain.dto.ProductDto
+import com.jaewoo.cloud.api.dto.ProductDto
 import org.springframework.web.bind.annotation.*
 
 interface IProductController {

@@ -1,4 +1,4 @@
-package com.jaewoo.cloud.api.domain.dto
+package com.jaewoo.cloud.api.dto
 
 class CompositeDto(
     val productId: Int,

@@ -1,9 +1,10 @@
 package com.jaewoo.cloud.product.controller
 
 import com.jaewoo.cloud.api.controller.IProductController
-import com.jaewoo.cloud.api.domain.dto.ProductDto
+import com.jaewoo.cloud.api.dto.ProductDto
 import com.jaewoo.cloud.api.error.exception.InvalidInputException
 import com.jaewoo.cloud.api.error.exception.NotfoundException
+import com.jaewoo.cloud.product.entity.Product
 import com.jaewoo.cloud.product.repository.ProductRepository
 import com.mongodb.DuplicateKeyException
 import org.springframework.web.bind.annotation.RestController
@@ -14,8 +15,13 @@ class ProductController(
 ) : IProductController {
     override fun createProduct(dto: ProductDto): ProductDto {
         try {
-            val product = dto.toEntity()
-            val saveProduct = productRepository.save(product)
+            val saveProduct = productRepository.save(
+                Product(
+                    productId = dto.productId,
+                    productName = dto.productName,
+                    productInfo = dto.productInfo ?: ""
+                )
+            )
 
             println("===========================================")
             println("saveProduct : ${saveProduct}")

@@ -1,8 +1,8 @@
 package com.jaewoo.cloud.composite.controller
 
-import com.jaewoo.cloud.api.domain.dto.ProductDto
-import com.jaewoo.cloud.api.domain.dto.RecommendDto
-import com.jaewoo.cloud.api.domain.dto.ReviewDto
+import com.jaewoo.cloud.api.dto.ProductDto
+import com.jaewoo.cloud.api.dto.RecommendDto
+import com.jaewoo.cloud.api.dto.ReviewDto
 import com.jaewoo.cloud.api.error.exception.InvalidInputException
 import com.jaewoo.cloud.api.error.exception.NotfoundException
 import org.junit.jupiter.api.BeforeEach

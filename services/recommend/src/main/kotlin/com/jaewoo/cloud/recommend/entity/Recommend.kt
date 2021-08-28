@@ -1,6 +1,6 @@
-package com.jaewoo.cloud.api.domain.entity
+package com.jaewoo.cloud.recommend.entity
 
-import com.jaewoo.cloud.api.domain.dto.RecommendDto
+import com.jaewoo.cloud.api.dto.RecommendDto
 import org.springframework.data.annotation.Id
 import org.springframework.data.mongodb.core.index.CompoundIndex
 import org.springframework.data.mongodb.core.mapping.Document
