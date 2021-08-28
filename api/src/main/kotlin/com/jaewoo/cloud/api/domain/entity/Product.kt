@@ -6,7 +6,7 @@ import org.springframework.data.mongodb.core.index.Indexed
 import org.springframework.data.mongodb.core.mapping.Document
 
 @Document(collection = "products")
-data class Product(
+class Product(
     @Indexed(unique = true)
     val productId: Int,
 

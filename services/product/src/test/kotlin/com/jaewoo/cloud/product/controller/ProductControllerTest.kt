@@ -1,9 +1,9 @@
 package com.jaewoo.cloud.product.controller
 
-import com.fasterxml.jackson.databind.ObjectMapper
 import com.jaewoo.cloud.api.domain.dto.ProductDto
 import com.jaewoo.cloud.product.builder.ProductBuilder
 import com.jaewoo.cloud.product.repository.ProductRepository
+import org.assertj.core.api.Assertions
 import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.Test
 import org.springframework.beans.factory.annotation.Autowired
@@ -23,9 +23,6 @@ internal class ProductControllerTest {
     lateinit var client: WebTestClient
 
     @Autowired
-    lateinit var mapper: ObjectMapper
-
-    @Autowired
     lateinit var productRepository: ProductRepository
 
     @BeforeEach
@@ -36,9 +33,9 @@ internal class ProductControllerTest {
     @Test
     fun `Product 단건조회`() {
         val buildProduct = ProductBuilder().buildProduct()
-        val (productId, productName, productInfo) = productRepository.save(buildProduct)
+        val saveProduct = productRepository.save(buildProduct)
 
-        val url = "/products/$productId"
+        val url = "/products/${saveProduct.productId}"
         val result = client.get()
             .uri(url)
             .accept(MediaType.APPLICATION_JSON)
@@ -46,16 +43,16 @@ internal class ProductControllerTest {
             .expectStatus().isOk
             .expectHeader().contentType(MediaType.APPLICATION_JSON)
             .expectBody()
-            .jsonPath("$.productId").isEqualTo(productId)
-            .jsonPath("$.productName").isEqualTo(productName)
-            .jsonPath("$.productInfo").isEqualTo(productInfo)
+            .jsonPath("$.productId").isEqualTo(saveProduct.productId)
+            .jsonPath("$.productName").isEqualTo(saveProduct.productName)
+            .jsonPath("$.productInfo").isEqualTo(saveProduct.productInfo)
             .returnResult().toString()
 
         println(result)
     }
 
     @Test
-    fun createProduct() {
+    fun `Product 단건 저장`() {
         val dto = ProductBuilder().buildProductDto()
 
         val url = "/products"
@@ -73,6 +70,22 @@ internal class ProductControllerTest {
             .returnResult().toString()
 
         println(result)
+    }
+
+    @Test
+    fun `Product 단건 삭제`() {
+        val dto = ProductBuilder().buildProductDto()
+        productRepository.save(dto.toEntity())
+
+        val url = "/products/${dto.productId}"
+        client.delete()
+            .uri(url)
+            .accept(MediaType.APPLICATION_JSON)
+            .exchange()
+            .expectStatus().isOk
+
+        val findByProductId = productRepository.findByProductId(dto.productId)
+        Assertions.assertThat(findByProductId).isNull()
     }
 
     @Test

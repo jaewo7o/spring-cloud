@@ -28,7 +28,7 @@ class ProductController(
 
     override fun getProduct(
         productId: Int
-    ): ProductDto? {
+    ): ProductDto {
         val product = productRepository.findByProductId(productId)
             ?: throw NotfoundException("No productId : $productId")
 
@@ -41,6 +41,11 @@ class ProductController(
     }
 
     override fun deleteProduct(productId: Int) {
-        TODO("Not yet implemented")
+        val findProduct = productRepository.findByProductId(productId) ?: throw NotfoundException("Data not exits")
+
+        println("===========================================")
+        println("findProduct : ${findProduct}")
+        println("===========================================")
+        productRepository.delete(findProduct)
     }
 }
