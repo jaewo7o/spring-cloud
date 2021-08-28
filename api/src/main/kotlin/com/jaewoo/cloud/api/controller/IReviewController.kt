@@ -6,7 +6,7 @@ import org.springframework.web.bind.annotation.*
 interface IReviewController {
 
     @PostMapping("/reviews")
-    fun createReview(body:ReviewDto)
+    fun createReview(dto:ReviewDto) : ReviewDto
 
     @GetMapping("/reviews")
     fun getReviews(@RequestParam productId : Int): List<ReviewDto>

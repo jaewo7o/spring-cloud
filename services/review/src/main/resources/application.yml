@@ -1,0 +1,21 @@
+server:
+    port: 7003
+    error:
+        include-message: always
+spring:
+    jpa:
+        database: mysql
+        database-platform: org.hibernate.dialect.MariaDB103Dialect
+        hibernate:
+            ddl-auto: update
+    datasource:
+        url: jdbc:mariadb://localhost/review-db
+        username: user01
+        password: user01
+        hikari:
+            initializationFailTimeout: 60000
+logging:
+    level:
+        root: INFO
+        com.jaewoo.cloud.review: DEBUG
+        org.hibernate.SQL: DEBUG
