@@ -1,5 +1,6 @@
 package com.jaewoo.cloud.api.domain.entity
 
+import com.jaewoo.cloud.api.domain.dto.RecommendDto
 import org.springframework.data.annotation.Id
 import org.springframework.data.mongodb.core.index.CompoundIndex
 import org.springframework.data.mongodb.core.mapping.Document
@@ -14,4 +15,11 @@ class Recommend(
 ) {
     @Id
     lateinit var id: String
+
+    fun toDto() = RecommendDto(
+        productId = productId,
+        recommendId = recommendId,
+        author = author,
+        content = content
+    )
 }

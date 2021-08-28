@@ -6,7 +6,7 @@ import org.springframework.web.bind.annotation.*
 interface IRecommendController {
 
     @PostMapping("/recommends")
-    fun createRecommend(body:RecommendDto)
+    fun createRecommend(@RequestBody dto:RecommendDto) : RecommendDto
 
     @GetMapping("/recommends")
     fun getRecommends(@RequestParam productId : Int): List<RecommendDto>

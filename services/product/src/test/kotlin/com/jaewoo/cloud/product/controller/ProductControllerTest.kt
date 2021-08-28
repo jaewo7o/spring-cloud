@@ -87,8 +87,4 @@ internal class ProductControllerTest {
         val findByProductId = productRepository.findByProductId(dto.productId)
         Assertions.assertThat(findByProductId).isNull()
     }
-
-    @Test
-    fun deleteProduct() {
-    }
 }
