@@ -148,7 +148,7 @@ class IntegrateModule(
 
     override fun deleteRecommends(productId: Int) {
         try {
-            val url = "$productServiceUrl/$productId"
+            val url = "$recommendServiceUrl?productId=$productId"
             restTemplate.delete(url)
             logger.info("#####################################################################")
             logger.info("getProduct: $url")
@@ -197,7 +197,7 @@ class IntegrateModule(
 
     override fun deleteReviews(productId: Int) {
         try {
-            val url = "$productServiceUrl/$productId"
+            val url = "$reviewServiceUrl?productId=$productId"
             restTemplate.delete(url)
             logger.info("#####################################################################")
             logger.info("deleteReviews: $url")

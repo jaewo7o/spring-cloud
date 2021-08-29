@@ -36,7 +36,7 @@
     </appender>
     
     <!-- INFO 레벨 이하 로그는 TEXT_FILE 어펜더로 로그 적재 -->
-    <root>
+    <root level="INFO">
         <appender-ref ref="TEXT_CONSOLE"/>
     </root>
 
