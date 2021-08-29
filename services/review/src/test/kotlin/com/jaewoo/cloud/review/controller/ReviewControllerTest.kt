@@ -39,7 +39,7 @@ internal class ReviewControllerTest {
 
         // when & then
         val url = "/reviews"
-        val result = client.post()
+        client.post()
             .uri(url)
             .accept(MediaType.APPLICATION_JSON)
             .body(Mono.just(dto), ReviewDto::class.java)
@@ -53,71 +53,73 @@ internal class ReviewControllerTest {
             .jsonPath("$.content").isEqualTo(dto.content)
             .returnResult().toString()
 
-        println(result)
+        // then
+        val findById = reviewRepository.findById(dto.reviewId)
+        Assertions.assertThat(findById.isPresent).isTrue()
     }
 
     @Test
     fun `Product에 대한 Review목록`() {
-//        // given
-//        val productId = 1
-//        val reviewCount = 5
-//
-//        (1..reviewCount).map {
-//            buildReview(
-//                productId,
-//                it
-//            )
-//        }.also {
-//            reviewRepository.saveAll(it)
-//        }
-//
-//        // when & then
-//        val url = "/reviews"
-//        val result = client.get()
-//            .uri {
-//                it.path(url)
-//                    .queryParam("productId", productId)
-//                    .build()
-//            }
-//            .exchange()
-//            .expectStatus().isOk
-//            .expectHeader().contentType(MediaType.APPLICATION_JSON)
-//            .expectBody()
-//            .jsonPath("$.length()").isEqualTo(reviewCount)
-//            .jsonPath("$[1].productId").isEqualTo(productId)
-//            .returnResult().toString()
-//
-//        println(result)
+        // given
+        val productId = 1
+        val reviewCount = 5
+
+        (1..reviewCount).map {
+            buildReview(
+                it,
+                productId
+            )
+        }.also {
+            reviewRepository.saveAll(it)
+        }
+
+        // when & then
+        val url = "/reviews"
+        val result = client.get()
+            .uri {
+                it.path(url)
+                    .queryParam("productId", productId)
+                    .build()
+            }
+            .exchange()
+            .expectStatus().isOk
+            .expectHeader().contentType(MediaType.APPLICATION_JSON)
+            .expectBody()
+            .jsonPath("$.length()").isEqualTo(reviewCount)
+            .jsonPath("$[1].productId").isEqualTo(productId)
+            .returnResult().toString()
+
+        println(result)
     }
 
     @Test
     fun `Review 삭제`() {
         // given
-//        val productId = 1
-//        val reviewCount = 5
-//
-//        (1..reviewCount).map {
-//            buildReview(
-//                productId,
-//                it
-//            )
-//        }.also {
-//            reviewRepository.saveAll(it)
-//        }
-//
-//        // when
-//        val url = "/reviews"
-//        client.delete()
-//            .uri {
-//                it.path(url)
-//                    .queryParam("productId", productId)
-//                    .build()
-//            }
-//            .exchange()
-//            .expectStatus().isOk
-//
-//        // then
-//        val findReviews = reviewRepository.findByProductId(productId)
-//        Assertions.assertThat(findReviews.size).isEqualTo(0)
+        val productId = 1
+        val reviewCount = 5
+
+        (1..reviewCount).map {
+            buildReview(
+                it,
+                productId
+            )
+        }.also {
+            reviewRepository.saveAll(it)
+        }
+
+        // when
+        val url = "/reviews"
+        client.delete()
+            .uri {
+                it.path(url)
+                    .queryParam("productId", productId)
+                    .build()
+            }
+            .exchange()
+            .expectStatus().isOk
+
+        // then
+        val findReviews = reviewRepository.findByProductId(productId)
+        Assertions.assertThat(findReviews.size).isEqualTo(0)
     }
 }

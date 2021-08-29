@@ -6,20 +6,26 @@ import com.jaewoo.cloud.api.dto.ProductDto
 import com.jaewoo.cloud.api.dto.RecommendDto
 import com.jaewoo.cloud.api.dto.ReviewDto
 import com.jaewoo.cloud.api.error.exception.NotfoundException
+import org.slf4j.Logger
+import org.slf4j.LoggerFactory
 import org.springframework.web.bind.annotation.RestController
 
 @RestController
 class CompositeController(
     private val integrateModule: IntegrateModule
 ) : ICompositeController {
-    override fun createComposite(body: CompositeDto) {
-        val product = ProductDto(body.productId, body.productName, "")
+
+    val logger: Logger = LoggerFactory.getLogger(this.javaClass)
+
+    override fun createComposite(dto: CompositeDto) {
+        logger.info("======>> 1")
+        val product = ProductDto(dto.productId, dto.productName, dto.productInfo)
         integrateModule.createProduct(product)
-        body.recommends.forEach {
-            integrateModule.createRecommend(RecommendDto(body.productId, it.recommendId, it.author, it.content))
+        dto.recommends.forEach {
+            integrateModule.createRecommend(RecommendDto(it.recommendId, dto.productId, it.author, it.content))
         }
-        body.reviews.forEach {
-            integrateModule.createReview(ReviewDto(body.productId, it.reviewId, it.author, it.subject, it.content))
+        dto.reviews.forEach {
+            integrateModule.createReview(ReviewDto(it.reviewId, dto.productId, it.author, it.subject, it.content))
         }
     }
 
@@ -29,7 +35,7 @@ class CompositeController(
         val recommends = integrateModule.getRecommends(productId)
         val reviews = integrateModule.getReviews(productId)
 
-        return CompositeDto(productId, productName = product.productName, recommends = recommends, reviews = reviews)
+        return CompositeDto(productId, productName = product.productName, productInfo = product.productInfo, recommends = recommends, reviews = reviews)
     }
 
     override fun deleteComposite(productId: Int) {

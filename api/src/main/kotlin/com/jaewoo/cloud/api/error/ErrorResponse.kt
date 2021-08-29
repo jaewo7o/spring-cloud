@@ -2,6 +2,7 @@ package com.jaewoo.cloud.api.error
 
 import org.springframework.http.HttpStatus
 import java.sql.Timestamp
+import java.time.LocalDateTime
 import java.time.ZonedDateTime
 
 class ErrorResponse(
@@ -9,5 +10,5 @@ class ErrorResponse(
     val httpStatus: HttpStatus,
     val message: String
 ) {
-    val timestamp: ZonedDateTime = ZonedDateTime.now()
+    val timestamp: LocalDateTime = LocalDateTime.now()
 }

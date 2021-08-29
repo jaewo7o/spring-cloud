@@ -9,7 +9,4 @@ spring:
       port: 27017
       database: product-db
 logging:
-  level:
-    root: INFO
-    com.jaewoo.cloud.product: DEBUG
-    org.springframework.data.mongodb.core.MongoTemplate: DEBUG
+  config: classpath:logback.xml

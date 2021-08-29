@@ -14,8 +14,8 @@ class ReviewController(
     override fun createReview(dto: ReviewDto) : ReviewDto {
         val saveReview = reviewRepository.save(
             Review(
-                dto.productId,
                 dto.reviewId,
+                dto.productId,
                 dto.author,
                 dto.subject,
                 dto.content

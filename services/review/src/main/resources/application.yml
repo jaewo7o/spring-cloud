@@ -13,7 +13,4 @@ spring:
         username: user01
         password: user01
 logging:
-    level:
-        root: INFO
-        com.jaewoo.cloud.review: DEBUG
-        org.hibernate.SQL: DEBUG
+    config: classpath:logback.xml

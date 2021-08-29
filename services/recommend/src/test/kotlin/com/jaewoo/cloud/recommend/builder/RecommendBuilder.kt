@@ -4,20 +4,20 @@ import com.jaewoo.cloud.api.dto.RecommendDto
 import com.jaewoo.cloud.recommend.entity.Recommend
 
 fun buildRecommendDto() = RecommendDto(
-    productId = 1,
     recommendId = 1,
+    productId = 1,
     author = "author",
     content = "content"
 )
 
 fun buildRecommend(
-    productId: Int,
     recommendId: Int,
+    productId: Int,
     author: String = "Author",
     content: String = "Content"
 ) = Recommend(
-    productId = productId,
     recommendId = recommendId,
+    productId = productId,
     author = author,
     content = content
 )

@@ -14,8 +14,8 @@ class RecommendController(
     override fun createRecommend(dto: RecommendDto): RecommendDto {
         val saveRecommend = recommendRepository.save(
             Recommend(
-                dto.productId,
                 dto.recommendId,
+                dto.productId,
                 dto.author,
                 dto.content
             )

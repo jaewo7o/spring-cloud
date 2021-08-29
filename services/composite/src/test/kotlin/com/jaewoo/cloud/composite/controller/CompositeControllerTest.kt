@@ -36,7 +36,7 @@ internal class CompositeControllerTest {
     @BeforeEach
     fun setUp() {
         `when`(integrateModule.getProduct(PRODUCT_ID_OK))
-            .thenReturn(ProductDto(PRODUCT_ID_OK, "name", null))
+            .thenReturn(ProductDto(PRODUCT_ID_OK, "name", ""))
         `when`(integrateModule.getRecommends(PRODUCT_ID_OK))
             .thenReturn(listOf(RecommendDto(PRODUCT_ID_OK, 1, "author", "contents")))
         `when`(integrateModule.getReviews(PRODUCT_ID_OK))

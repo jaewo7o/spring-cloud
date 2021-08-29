@@ -4,19 +4,17 @@ app:
     product:
         protocol: http
         host: localhost
-        service: product
+        service: products
         port: 7001
     recommend:
         protocol: http
         host: localhost
-        service: recommend
+        service: recommends
         port: 7002
     review:
         protocol: http
         host: localhost
-        service: review
+        service: reviews
         port: 7003
 logging:
-    level:
-        root: INFO
-        com.jaewoo.cloud.composite: DEBUG
+    config: classpath:logback.xml

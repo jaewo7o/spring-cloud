@@ -65,8 +65,8 @@ internal class RecommendControllerTest {
 
         (1..recommendCount).map {
             buildRecommend(
-                productId,
-                it
+                it,
+                productId
             )
         }.also {
             recommendRepository.saveAll(it)
@@ -99,8 +99,8 @@ internal class RecommendControllerTest {
 
         (1..recommendCount).map {
             buildRecommend(
-                productId,
-                it
+                it,
+                productId
             )
         }.also {
             recommendRepository.saveAll(it)

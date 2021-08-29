@@ -23,4 +23,8 @@ class Product(
         productName = this.productName,
         productInfo = this.productInfo
     )
+
+    override fun toString(): String {
+        return "Product(productId=$productId, productName='$productName', productInfo='$productInfo')"
+    }
 }

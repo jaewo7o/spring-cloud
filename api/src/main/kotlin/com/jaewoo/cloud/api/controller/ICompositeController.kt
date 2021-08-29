@@ -1,15 +1,12 @@
 package com.jaewoo.cloud.api.controller
 
 import com.jaewoo.cloud.api.dto.CompositeDto
-import org.springframework.web.bind.annotation.DeleteMapping
-import org.springframework.web.bind.annotation.GetMapping
-import org.springframework.web.bind.annotation.PathVariable
-import org.springframework.web.bind.annotation.PostMapping
+import org.springframework.web.bind.annotation.*
 
 interface ICompositeController {
 
     @PostMapping("/composites")
-    fun createComposite(body: CompositeDto)
+    fun createComposite(@RequestBody dto: CompositeDto)
 
     @GetMapping("/composites/{productId}")
     fun getComposite(@PathVariable productId : Int): CompositeDto

@@ -6,16 +6,16 @@ import javax.persistence.*
 @Entity
 @Table(name = "reviews")
 class Review(
-    var productId: Int,
     @Id
     var reviewId: Int,
+    var productId: Int,
     var author: String,
     var subject: String,
     var content: String
 ) {
     fun toDto() = ReviewDto(
-        productId = productId,
         reviewId = reviewId,
+        productId = productId,
         author = author,
         subject = subject,
         content = content

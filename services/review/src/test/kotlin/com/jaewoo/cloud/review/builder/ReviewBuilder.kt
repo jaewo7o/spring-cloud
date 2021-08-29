@@ -5,14 +5,14 @@ import com.jaewoo.cloud.review.entity.Review
 
 
 fun buildReviewDto(
+    reviewId: Int = 81,
     productId: Int = 1,
-    reviewId: Int = 1,
     author: String = "author",
     subject: String = "subject",
     content: String = "content"
 ) = ReviewDto(
-    productId = productId,
     reviewId = reviewId,
+    productId = productId,
     author = author,
     subject = subject,
     content = content
@@ -20,14 +20,14 @@ fun buildReviewDto(
 
 
 fun buildReview(
-    productId: Int = 1,
     reviewId: Int = 1,
+    productId: Int = 1,
     author: String = "author",
     subject: String = "subject",
     content: String = "content"
 ) = Review(
-    productId = productId,
     reviewId = reviewId,
+    productId = productId,
     author = author,
     subject = subject,
     content = content

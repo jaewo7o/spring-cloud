@@ -9,6 +9,8 @@ import com.jaewoo.cloud.api.dto.RecommendDto
 import com.jaewoo.cloud.api.dto.ReviewDto
 import com.jaewoo.cloud.api.error.exception.InvalidInputException
 import com.jaewoo.cloud.api.error.exception.NotfoundException
+import org.slf4j.Logger
+import org.slf4j.LoggerFactory
 import org.springframework.beans.factory.annotation.Value
 import org.springframework.core.ParameterizedTypeReference
 import org.springframework.http.HttpMethod
@@ -20,7 +22,6 @@ import org.springframework.web.client.RestTemplate
 @Component
 class IntegrateModule(
     val restTemplate: RestTemplate,
-    val objectMapper: ObjectMapper,
 
     @Value("\${app.product.protocol}")
     val productProtocol: String,
@@ -50,6 +51,8 @@ class IntegrateModule(
     val reviewService: String
 ) : IProductController, IRecommendController, IReviewController {
 
+    val logger: Logger = LoggerFactory.getLogger(this.javaClass)
+
     val productServiceUrl = "$productProtocol://$productHost:$productPort/$productService"
     val recommendServiceUrl = "$recommendProtocol://$recommendHost:$recommendPort/$recommendService"
     val reviewServiceUrl = "$reviewProtocol://$reviewHost:$reviewPort/$reviewService"
@@ -59,21 +62,22 @@ class IntegrateModule(
             HttpStatus.NOT_FOUND -> return NotfoundException(ex.responseBodyAsString)
             HttpStatus.UNPROCESSABLE_ENTITY -> return InvalidInputException(ex.responseBodyAsString)
             else -> {
-                println("Unexpected error : ${ex.statusCode}")
-                println("Error body : ${ex.responseBodyAsString}")
+                logger.info("Unexpected error : ${ex.statusCode}")
+                logger.info("Error body : ${ex.responseBodyAsString}")
                 return ex
             }
         }
     }
 
     override fun createProduct(dto: ProductDto): ProductDto? {
+        logger.info("======>3")
         try {
             val url = productServiceUrl
             val product = restTemplate.postForObject(url, dto, ProductDto::class.java)
-            println("#####################################################################")
-            println("createProduct: $url")
-            println("product: $product")
-            println("#####################################################################")
+            logger.info("#####################################################################")
+            logger.info("createProduct: $url")
+            logger.info("product: ${product.toString()}")
+            logger.info("#####################################################################")
 
             return product
         } catch (ex: HttpClientErrorException) {
@@ -85,10 +89,10 @@ class IntegrateModule(
         try {
             val url = "$productServiceUrl/$productId"
             val product = restTemplate.getForObject(url, ProductDto::class.java)
-            println("#####################################################################")
-            println("getProduct: $url")
-            println("product: ${product.toString()}")
-            println("#####################################################################")
+            logger.info("#####################################################################")
+            logger.info("getProduct: $url")
+            logger.info("product: ${product.toString()}")
+            logger.info("#####################################################################")
             return product
         } catch (ex: HttpClientErrorException) {
             throw convertHttpClientException(ex)
@@ -99,10 +103,10 @@ class IntegrateModule(
         try {
             val url = "$productServiceUrl/$productId"
             restTemplate.delete(url)
-            println("#####################################################################")
-            println("getProduct: $url")
-            println("productId: $productId")
-            println("#####################################################################")
+            logger.info("#####################################################################")
+            logger.info("getProduct: $url")
+            logger.info("productId: $productId")
+            logger.info("#####################################################################")
         } catch (ex: HttpClientErrorException) {
             throw convertHttpClientException(ex)
         }
@@ -112,10 +116,10 @@ class IntegrateModule(
         try {
             val url = recommendServiceUrl
             val recommendDto = restTemplate.postForObject(url, dto, RecommendDto::class.java)
-            println("#####################################################################")
-            println("createRecommend: $url")
-            println("recommendDto: $recommendDto")
-            println("#####################################################################")
+            logger.info("#####################################################################")
+            logger.info("createRecommend: $url")
+            logger.info("recommendDto: $recommendDto")
+            logger.info("#####################################################################")
 
             return recommendDto
         } catch (ex: HttpClientErrorException) {
@@ -131,10 +135,10 @@ class IntegrateModule(
                 HttpMethod.GET,
                 null,
                 object : ParameterizedTypeReference<List<RecommendDto>>() {}).body as List<RecommendDto>
-            println("#####################################################################")
-            println("createRecommend: $url")
-            println("prductId : $productId, recommend size : ${recommends.size}")
-            println("#####################################################################")
+            logger.info("#####################################################################")
+            logger.info("createRecommend: $url")
+            logger.info("prductId : $productId, recommend size : ${recommends.size}")
+            logger.info("#####################################################################")
 
             return recommends
         } catch (ex: HttpClientErrorException) {
@@ -146,10 +150,10 @@ class IntegrateModule(
         try {
             val url = "$productServiceUrl/$productId"
             restTemplate.delete(url)
-            println("#####################################################################")
-            println("getProduct: $url")
-            println("productId: $productId")
-            println("#####################################################################")
+            logger.info("#####################################################################")
+            logger.info("getProduct: $url")
+            logger.info("productId: $productId")
+            logger.info("#####################################################################")
         } catch (ex: HttpClientErrorException) {
             throw convertHttpClientException(ex)
         }
@@ -157,12 +161,14 @@ class IntegrateModule(
 
     override fun createReview(dto: ReviewDto): ReviewDto? {
         try {
+            logger.info("review dto input : $dto")
+
             val url = reviewServiceUrl
             val review = restTemplate.postForObject(url, dto, ReviewDto::class.java)
-            println("#####################################################################")
-            println("createReview: $url")
-            println("review: $review")
-            println("#####################################################################")
+            logger.info("#####################################################################")
+            logger.info("createReview: $url")
+            logger.info("review: $review")
+            logger.info("#####################################################################")
 
             return review
         } catch (ex: HttpClientErrorException) {
@@ -178,10 +184,10 @@ class IntegrateModule(
                 HttpMethod.GET,
                 null,
                 object : ParameterizedTypeReference<List<ReviewDto>>() {}).body as List<ReviewDto>
-            println("#####################################################################")
-            println("getReviews: $url")
-            println("prductId : $productId, review size : ${reviews.size}")
-            println("#####################################################################")
+            logger.info("#####################################################################")
+            logger.info("getReviews: $url")
+            logger.info("prductId : $productId, review size : ${reviews.size}")
+            logger.info("#####################################################################")
 
             return reviews
         } catch (ex: HttpClientErrorException) {
@@ -193,10 +199,10 @@ class IntegrateModule(
         try {
             val url = "$productServiceUrl/$productId"
             restTemplate.delete(url)
-            println("#####################################################################")
-            println("deleteReviews: $url")
-            println("productId: $productId")
-            println("#####################################################################")
+            logger.info("#####################################################################")
+            logger.info("deleteReviews: $url")
+            logger.info("productId: $productId")
+            logger.info("#####################################################################")
         } catch (ex: HttpClientErrorException) {
             throw convertHttpClientException(ex)
         }
