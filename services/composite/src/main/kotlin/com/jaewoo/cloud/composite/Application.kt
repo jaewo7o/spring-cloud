@@ -9,7 +9,6 @@ import org.springframework.web.client.RestTemplate
 @ComponentScan("com.jaewoo.cloud")
 @SpringBootApplication
 class Application {
-
     @Bean
     fun restTemplate() = RestTemplate()
 }
