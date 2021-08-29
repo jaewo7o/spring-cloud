@@ -1,0 +1,20 @@
+server:
+    port: 8080
+app:
+    product:
+        protocol: http
+        host: product
+        service: products
+        port: 8080
+    recommend:
+        protocol: http
+        host: recommend
+        service: recommends
+        port: 8080
+    review:
+        protocol: http
+        host: review
+        service: reviews
+        port: 8080
+logging:
+    config: classpath:logback-docker.xml

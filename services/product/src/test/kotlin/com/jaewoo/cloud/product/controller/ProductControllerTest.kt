@@ -66,7 +66,7 @@ internal class ProductControllerTest {
             .expectBody()
             .jsonPath("$.productId").isEqualTo(dto.productId)
             .jsonPath("$.productName").isEqualTo(dto.productName)
-            .jsonPath("$.productInfo").isEqualTo(dto.productInfo!!)
+            .jsonPath("$.productInfo").isEqualTo(dto.productInfo)
             .returnResult().toString()
 
         println(result)

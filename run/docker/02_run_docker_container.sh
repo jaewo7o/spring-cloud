@@ -20,3 +20,24 @@ docker run -d --rm \
       -p 27017:27017 \
       -v ~/dev/data/mongo/:/data/db \
       mongo
+
+docker run -d --rm --name composite \
+      --network spring-cloud_net \
+      -p 8080:8080 \
+      -e SPRING_PROFILES_ACTIVE=docker \
+      composite
+
+docker run -d --rm --name product \
+      --network spring-cloud_net \
+      -e SPRING_PROFILES_ACTIVE=docker \
+      product
+
+docker run -d --rm --name recommend \
+      --network spring-cloud_net \
+      -e SPRING_PROFILES_ACTIVE=docker \
+      recommend
+
+docker run -d --rm --name review \
+      --network spring-cloud_net \
+      -e SPRING_PROFILES_ACTIVE=docker \
+      review

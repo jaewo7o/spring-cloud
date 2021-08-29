@@ -1,6 +1,6 @@
 cd ../..
 
-./gradlew build
+./gradlew build -x test
 
 java -jar ./services/composite/build/libs/composite-1.0.0.jar &
 

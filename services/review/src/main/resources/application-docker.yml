@@ -1,0 +1,8 @@
+server:
+    port: 8080
+spring:
+    jpa:
+    datasource:
+        url: jdbc:mariadb://mariadb/review-db
+logging:
+    config: classpath:logback-docker.xml

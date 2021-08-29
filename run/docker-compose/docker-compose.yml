@@ -1,0 +1,60 @@
+version: '2.1'
+
+services:
+    product:
+        build: ../../services/product
+        mem_limit: 350m
+        environment:
+            - SPRING_PROFILES_ACTIVE=docker
+        depends_on:
+            - mongo
+
+    recommend:
+        build: ../../services/recommend
+        mem_limit: 350m
+        environment:
+            - SPRING_PROFILES_ACTIVE=docker
+        depends_on:
+            - mongo
+
+    review:
+        build: ../../services/review
+        mem_limit: 350m
+        environment:
+            - SPRING_PROFILES_ACTIVE=docker
+        depends_on:
+            mariadb:
+                condition: service_healthy
+
+    composite:
+        build: ../../services/composite
+        mem_limit: 350m
+        ports:
+            - "8080:8080"
+        environment:
+            - SPRING_PROFILES_ACTIVE=docker
+
+    mongo:
+        image: mongo
+        mem_limit: 350m
+        ports:
+            - "27017:27017"
+
+    mariadb:
+        image: mariadb
+        mem_limit: 350m
+        ports:
+            - "3306:3306"
+        environment:
+            - TZ=Asia/Seoul
+            - MYSQL_HOST=localhost
+            - MYSQL_PORT=3306
+            - MYSQL_ROOT_PASSWORD=mariadb
+            - MYSQL_DATABASE=review-db
+            - MYSQL_USER=user01
+            - MYSQL_PASSWORD=user01
+        healthcheck:
+            test: ["CMD", "mysqladmin", "ping", "-uuser01", "-puser01", "-h", "localhost"]
+            interval: 10s
+            timeout: 5s
+            retries: 10
