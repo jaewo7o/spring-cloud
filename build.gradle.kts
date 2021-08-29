@@ -1,6 +1,8 @@
 
+val springBootVersion = "2.4.3"
+
 plugins {
-    id("org.springframework.boot") version "2.2.2.RELEASE" apply false
+    id("org.springframework.boot") version "2.4.3" apply false
     id("io.spring.dependency-management") version "1.0.8.RELEASE" apply false
 
     // kotlin 관련 버전은 settings.gradle.kts 와 gradle.properties 에 선언
@@ -15,8 +17,6 @@ plugins {
 repositories {
     mavenCentral()
 }
-
-val springBootVersion = "2.4.3"
 
 allprojects {
     version = "1.0.0"
@@ -35,12 +35,6 @@ subprojects {
     repositories {
         mavenCentral()
     }
-
-//    the<io.spring.gradle.dependencymanagement.dsl.DependencyManagementExtension>().apply {
-//        imports {
-//            mavenBom(org.springframework.boot.gradle.plugin.SpringBootPlugin.BOM_COORDINATES)
-//        }
-//    }
 
     dependencies {
         // Kotlin Dependency
@@ -77,10 +71,6 @@ subprojects {
     tasks.withType<Test> {
         useJUnitPlatform()
     }
-//
-//    sourceSets {
-//        kotlin.sourceSets.register("$buildDir/generated/source/kapt/main")
-//    }
 }
 
 project(":services:composite") {
