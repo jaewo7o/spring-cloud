@@ -118,3 +118,17 @@ project(":services:review") {
         implementation("org.mariadb.jdbc:mariadb-java-client:2.4.1")
     }
 }
+
+project(":cloud:eureka") {
+    apply(plugin = "kotlin-spring")
+    apply(plugin = "org.springframework.boot")
+
+    val springCloudVersion = "2020.0.3"
+
+    dependencies {
+        // note that the BOM coordinates are wrapped with the "platform" keyword
+        implementation(platform("org.springframework.cloud:spring-cloud-dependencies:${springCloudVersion}"))
+        implementation("org.springframework.cloud:spring-cloud-starter-netflix-eureka-server")
+        implementation("org.glassfish.jaxb:jaxb-runtime")
+    }
+}
