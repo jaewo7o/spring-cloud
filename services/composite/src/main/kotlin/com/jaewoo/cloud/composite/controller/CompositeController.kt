@@ -1,11 +1,9 @@
 package com.jaewoo.cloud.composite.controller
 
 import com.jaewoo.cloud.api.controller.ICompositeController
-import com.jaewoo.cloud.api.dto.CompositeDto
-import com.jaewoo.cloud.api.dto.ProductDto
-import com.jaewoo.cloud.api.dto.RecommendDto
-import com.jaewoo.cloud.api.dto.ReviewDto
+import com.jaewoo.cloud.api.dto.*
 import com.jaewoo.cloud.api.error.exception.NotfoundException
+import com.jaewoo.cloud.util.ServiceUtil
 import org.slf4j.Logger
 import org.slf4j.LoggerFactory
 import org.springframework.web.bind.annotation.RestController
@@ -19,13 +17,13 @@ class CompositeController(
 
     override fun createComposite(dto: CompositeDto) {
         logger.info("======>> 1")
-        val product = ProductDto(dto.productId, dto.productName, dto.productInfo)
+        val product = ProductDto(dto.productId, dto.productName, dto.productInfo, "")
         integrateModule.createProduct(product)
         dto.recommends.forEach {
-            integrateModule.createRecommend(RecommendDto(it.recommendId, dto.productId, it.author, it.content))
+            integrateModule.createRecommend(RecommendDto(it.recommendId, dto.productId, it.author, it.content, ""))
         }
         dto.reviews.forEach {
-            integrateModule.createReview(ReviewDto(it.reviewId, dto.productId, it.author, it.subject, it.content))
+            integrateModule.createReview(ReviewDto(it.reviewId, dto.productId, it.author, it.subject, it.content, ""))
         }
     }
 
@@ -35,7 +33,8 @@ class CompositeController(
         val recommends = integrateModule.getRecommends(productId)
         val reviews = integrateModule.getReviews(productId)
 
-        return CompositeDto(productId, productName = product.productName, productInfo = product.productInfo, recommends = recommends, reviews = reviews)
+        val serviceAddresses = ServiceAddresses()
+        return CompositeDto(productId, productName = product.productName, productInfo = product.productInfo, recommends = recommends, reviews = reviews, serviceAddresses)
     }
 
     override fun deleteComposite(productId: Int) {

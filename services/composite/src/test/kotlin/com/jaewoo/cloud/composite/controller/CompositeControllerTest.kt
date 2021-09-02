@@ -36,11 +36,11 @@ internal class CompositeControllerTest {
     @BeforeEach
     fun setUp() {
         `when`(integrateModule.getProduct(PRODUCT_ID_OK))
-            .thenReturn(ProductDto(PRODUCT_ID_OK, "name", ""))
+            .thenReturn(ProductDto(PRODUCT_ID_OK, "name", "", ""))
         `when`(integrateModule.getRecommends(PRODUCT_ID_OK))
-            .thenReturn(listOf(RecommendDto(PRODUCT_ID_OK, 1, "author", "contents")))
+            .thenReturn(listOf(RecommendDto(PRODUCT_ID_OK, 1, "author", "contents", "")))
         `when`(integrateModule.getReviews(PRODUCT_ID_OK))
-            .thenReturn(listOf(ReviewDto(PRODUCT_ID_OK, 1, "author", "subject", "contents")))
+            .thenReturn(listOf(ReviewDto(PRODUCT_ID_OK, 1, "author", "subject", "contents", "")))
 
         `when`(integrateModule.getProduct(PRODUCT_ID_NOT_FOUND))
             .thenThrow(NotfoundException("No productId : $PRODUCT_ID_NOT_FOUND"))

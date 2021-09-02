@@ -5,5 +5,8 @@ data class ReviewDto(
     val productId: Int,
     val author: String,
     val subject: String,
-    val content: String
-)
+    val content: String,
+    val serviceAddress: String
+) {
+
+}

@@ -18,6 +18,7 @@ class Review(
         productId = productId,
         author = author,
         subject = subject,
-        content = content
+        content = content,
+        serviceAddress = ""
     )
 }
