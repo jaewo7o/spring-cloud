@@ -17,7 +17,7 @@ import org.springframework.http.HttpStatus
 import org.springframework.http.MediaType
 import org.springframework.test.web.reactive.server.WebTestClient
 
-@SpringBootTest(webEnvironment = RANDOM_PORT)
+@SpringBootTest(webEnvironment = RANDOM_PORT, properties = ["eureka.client.enabled=false"])
 @AutoConfigureWebTestClient
 internal class CompositeControllerTest {
 

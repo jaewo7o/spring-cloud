@@ -16,9 +16,7 @@ import org.springframework.web.reactive.function.server.RequestPredicates.path
 import org.springframework.web.util.UriBuilder
 import reactor.core.publisher.Mono
 
-@SpringBootTest(
-    webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT
-)
+@SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT, properties = ["eureka.client.enabled=false"])
 @AutoConfigureWebTestClient
 internal class RecommendControllerTest {
 

@@ -1,5 +1,6 @@
 
 val springBootVersion = "2.4.3"
+val springCloudVersion = "2020.0.3"
 
 plugins {
     id("org.springframework.boot") version "2.4.3" apply false
@@ -45,6 +46,9 @@ subprojects {
         implementation("org.springframework.boot:spring-boot-starter-webflux:${springBootVersion}")
         implementation("org.springframework.boot:spring-boot-starter-test:${springBootVersion}")
 
+        // note that the BOM coordinates are wrapped with the "platform" keyword
+        implementation(platform("org.springframework.cloud:spring-cloud-dependencies:${springCloudVersion}"))
+
         // jackson library
         implementation("com.fasterxml.jackson.module:jackson-module-kotlin:2.9.+")
 
@@ -74,45 +78,49 @@ subprojects {
 }
 
 project(":services:composite") {
-    apply(plugin = "kotlin-spring")
     apply(plugin = "org.springframework.boot")
 
     dependencies {
         implementation(project(":api"))
-        implementation("org.springframework.boot:spring-boot-starter-actuator:${springBootVersion}")
+        implementation("org.springframework.boot:spring-boot-starter-actuator")
+
+        implementation("org.springframework.cloud:spring-cloud-starter-netflix-eureka-client")
     }
 }
 
 project(":services:product") {
-    apply(plugin = "kotlin-spring")
     apply(plugin = "org.springframework.boot")
 
     dependencies {
         implementation(project(":api"))
-        implementation("org.springframework.boot:spring-boot-starter-actuator:${springBootVersion}")
-        implementation("org.springframework.boot:spring-boot-starter-data-mongodb:${springBootVersion}")
+        implementation("org.springframework.boot:spring-boot-starter-actuator")
+        implementation("org.springframework.boot:spring-boot-starter-data-mongodb")
+
+        implementation("org.springframework.cloud:spring-cloud-starter-netflix-eureka-client")
     }
 }
 
 project(":services:recommend") {
-    apply(plugin = "kotlin-spring")
     apply(plugin = "org.springframework.boot")
 
     dependencies {
         implementation(project(":api"))
-        implementation("org.springframework.boot:spring-boot-starter-actuator:${springBootVersion}")
-        implementation("org.springframework.boot:spring-boot-starter-data-mongodb:${springBootVersion}")
+        implementation("org.springframework.boot:spring-boot-starter-actuator")
+        implementation("org.springframework.boot:spring-boot-starter-data-mongodb")
+
+        implementation("org.springframework.cloud:spring-cloud-starter-netflix-eureka-client")
     }
 }
 
 project(":services:review") {
-    apply(plugin = "kotlin-spring")
     apply(plugin = "org.springframework.boot")
 
     dependencies {
         implementation(project(":api"))
-        implementation("org.springframework.boot:spring-boot-starter-actuator:${springBootVersion}")
-        implementation("org.springframework.boot:spring-boot-starter-data-jpa:${springBootVersion}")
+        implementation("org.springframework.boot:spring-boot-starter-actuator")
+        implementation("org.springframework.boot:spring-boot-starter-data-jpa")
+
+        implementation("org.springframework.cloud:spring-cloud-starter-netflix-eureka-client")
 
         // mariadb
         implementation("org.mariadb.jdbc:mariadb-java-client:2.4.1")
@@ -120,15 +128,11 @@ project(":services:review") {
 }
 
 project(":cloud:eureka") {
-    apply(plugin = "kotlin-spring")
     apply(plugin = "org.springframework.boot")
 
-    val springCloudVersion = "2020.0.3"
-
     dependencies {
-        // note that the BOM coordinates are wrapped with the "platform" keyword
-        implementation(platform("org.springframework.cloud:spring-cloud-dependencies:${springCloudVersion}"))
         implementation("org.springframework.cloud:spring-cloud-starter-netflix-eureka-server")
+
         implementation("org.glassfish.jaxb:jaxb-runtime")
     }
 }

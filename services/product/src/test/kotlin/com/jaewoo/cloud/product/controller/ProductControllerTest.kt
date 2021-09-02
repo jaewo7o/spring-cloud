@@ -14,9 +14,7 @@ import org.springframework.http.MediaType
 import org.springframework.test.web.reactive.server.WebTestClient
 import reactor.core.publisher.Mono
 
-@SpringBootTest(
-    webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT
-)
+@SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT, properties = ["eureka.client.enabled=false"])
 @AutoConfigureWebTestClient
 internal class ProductControllerTest {
 
