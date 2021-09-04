@@ -21,6 +21,11 @@ docker run -d --rm \
       -v ~/dev/data/mongo/:/data/db \
       mongo
 
+docker run -d --rm --name eureka \
+      --network spring-cloud_net \
+      -p 8761:8761 \
+      eureka
+
 docker run -d --rm --name composite \
       --network spring-cloud_net \
       -p 8080:8080 \

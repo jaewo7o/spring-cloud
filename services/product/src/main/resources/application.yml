@@ -1,12 +1,23 @@
 server:
-  port: 7001
-  error:
-    include-message: always
+    port: 7001
+    error:
+        include-message: always
 spring:
-  data:
-    mongodb:
-      host: localhost
-      port: 27017
-      database: product-db
+    data:
+        mongodb:
+            host: localhost
+            port: 27017
+            database: product-db
+    application:
+        name: product
+eureka:
+    client:
+        serviceUrl:
+            defaultZone: http://localhost:8761/eureka/
+        initialInstanceInfoReplicationIntervalSeconds: 5
+        registryFetchIntervalSeconds: 5
+    instance:
+        leaseRenewalIntervalInSeconds: 5
+        leaseExpirationDurationInSeconds: 5
 logging:
-  config: classpath:logback.xml
+    config: classpath:logback.xml

@@ -12,5 +12,16 @@ spring:
         url: jdbc:mariadb://localhost/review-db
         username: user01
         password: user01
+    application:
+        name: review
+eureka:
+    client:
+        serviceUrl:
+            defaultZone: http://localhost:8761/eureka/
+        initialInstanceInfoReplicationIntervalSeconds: 5
+        registryFetchIntervalSeconds: 5
+    instance:
+        leaseRenewalIntervalInSeconds: 5
+        leaseExpirationDurationInSeconds: 5
 logging:
     config: classpath:logback.xml

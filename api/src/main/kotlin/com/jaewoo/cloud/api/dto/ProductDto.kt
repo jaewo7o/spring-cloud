@@ -4,5 +4,6 @@ data class ProductDto(
     val productId: Int,
     val productName: String,
     val productInfo: String,
-    val serviceAddress: String
-)
+) {
+    var serviceAddress: String? = null
+}

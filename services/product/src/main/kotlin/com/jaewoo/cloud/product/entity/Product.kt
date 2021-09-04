@@ -21,8 +21,7 @@ class Product(
     fun toDto() = ProductDto(
         productId = this.productId,
         productName = this.productName,
-        productInfo = this.productInfo,
-        serviceAddress = ""
+        productInfo = this.productInfo
     )
 
     override fun toString(): String {

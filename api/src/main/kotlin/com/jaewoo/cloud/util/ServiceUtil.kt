@@ -11,7 +11,7 @@ class ServiceUtil {
     @Value("\${server.port}")
     var port : Int = 0
 
-    lateinit var address : String
+    var address : String? = null
 
     fun getServiceAddress() : String {
         val hostName = findMyHostName()

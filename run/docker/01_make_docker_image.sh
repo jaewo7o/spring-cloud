@@ -5,6 +5,9 @@ projectHome=$(pwd)
 cd $projectHome
 ./gradlew build -x test
 
+cd $projectHome/cloud/eureka
+docker build -t eureka -f ./Dockerfile .
+
 cd $projectHome/services/composite
 docker build -t composite -f ./Dockerfile .
 

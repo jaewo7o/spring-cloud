@@ -16,5 +16,19 @@ app:
         host: localhost
         service: reviews
         port: 7003
+
+spring:
+    application:
+        name: composite
+eureka:
+    client:
+        serviceUrl:
+            defaultZone: http://localhost:8761/eureka/
+        initialInstanceInfoReplicationIntervalSeconds: 5
+        registryFetchIntervalSeconds: 5
+    instance:
+        leaseRenewalIntervalInSeconds: 5
+        leaseExpirationDurationInSeconds: 5
+
 logging:
     config: classpath:logback.xml

@@ -20,8 +20,7 @@ class Recommend(
         productId = productId,
         recommendId = recommendId,
         author = author,
-        content = content,
-        serviceAddress = ""
+        content = content
     )
 
     override fun toString(): String {

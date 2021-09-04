@@ -1,3 +1,5 @@
+sudo docker stop eureka;
+
 sudo docker stop composite;
 
 sudo docker stop product;
@@ -11,6 +13,7 @@ sudo docker stop mongo;
 sudo docker stop mariadb;
 
 
+sudo docker rmi eureka;
 
 sudo docker rmi composite;
 

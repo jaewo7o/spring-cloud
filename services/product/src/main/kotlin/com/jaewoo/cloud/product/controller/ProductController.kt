@@ -6,6 +6,7 @@ import com.jaewoo.cloud.api.error.exception.InvalidInputException
 import com.jaewoo.cloud.api.error.exception.NotfoundException
 import com.jaewoo.cloud.product.entity.Product
 import com.jaewoo.cloud.product.repository.ProductRepository
+import com.jaewoo.cloud.util.ServiceUtil
 import com.mongodb.DuplicateKeyException
 import org.slf4j.Logger
 import org.slf4j.LoggerFactory
@@ -13,7 +14,8 @@ import org.springframework.web.bind.annotation.RestController
 
 @RestController
 class ProductController(
-    private val productRepository: ProductRepository
+    private val productRepository: ProductRepository,
+    private val serviceUtil: ServiceUtil
 ) : IProductController {
 
     val logger: Logger = LoggerFactory.getLogger(this.javaClass)
@@ -46,6 +48,7 @@ class ProductController(
             ?: throw NotfoundException("No productId : $productId")
 
         val productDto = product.toDto()
+        productDto.serviceAddress = serviceUtil.getServiceAddress()
         logger.info("===========================================")
         logger.info("Product Dto : ${productDto}")
         logger.info("===========================================")

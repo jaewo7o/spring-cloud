@@ -7,8 +7,7 @@ fun buildRecommendDto() = RecommendDto(
     recommendId = 1,
     productId = 1,
     author = "author",
-    content = "content",
-    serviceAddress = ""
+    content = "content"
 )
 
 fun buildRecommend(

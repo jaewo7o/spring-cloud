@@ -7,5 +7,5 @@ data class CompositeDto(
     val recommends: List<RecommendDto>,
     val reviews: List<ReviewDto>,
 
-    val serviceAddresses: ServiceAddresses
+    val serviceAddressesDto: ServiceAddressesDto
 )

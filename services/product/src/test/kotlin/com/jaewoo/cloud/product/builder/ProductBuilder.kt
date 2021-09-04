@@ -20,6 +20,5 @@ fun buildProductDto(
 ) = ProductDto(
     productId = productId,
     productName = productName,
-    productInfo = productInfo,
-    serviceAddress = ""
+    productInfo = productInfo
 )
