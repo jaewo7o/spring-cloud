@@ -6,6 +6,7 @@ import com.jaewoo.cloud.api.error.exception.InvalidInputException
 import com.jaewoo.cloud.review.entity.Review
 import com.jaewoo.cloud.review.repository.ReviewRepository
 import com.jaewoo.cloud.util.ServiceUtil
+import org.springframework.web.bind.annotation.RequestBody
 import org.springframework.web.bind.annotation.RestController
 
 @RestController
@@ -13,7 +14,7 @@ class ReviewController(
     private val reviewRepository: ReviewRepository,
     private val serviceUtil: ServiceUtil
 ) : IReviewController {
-    override fun createReview(dto: ReviewDto) : ReviewDto {
+    override fun createReview(@RequestBody dto: ReviewDto) : ReviewDto {
         val saveReview = reviewRepository.save(
             Review(
                 dto.reviewId,

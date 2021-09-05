@@ -10,6 +10,7 @@ import com.jaewoo.cloud.util.ServiceUtil
 import com.mongodb.DuplicateKeyException
 import org.slf4j.Logger
 import org.slf4j.LoggerFactory
+import org.springframework.web.bind.annotation.RequestBody
 import org.springframework.web.bind.annotation.RestController
 
 @RestController
@@ -20,7 +21,7 @@ class ProductController(
 
     val logger: Logger = LoggerFactory.getLogger(this.javaClass)
 
-    override fun createProduct(dto: ProductDto): ProductDto {
+    override fun createProduct(@RequestBody dto: ProductDto): ProductDto {
         try {
             logger.info("=========== p1")
             val saveProduct = productRepository.save(
