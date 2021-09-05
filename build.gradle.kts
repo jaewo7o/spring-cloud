@@ -44,6 +44,7 @@ subprojects {
 
         // Spring Boot
         implementation("org.springframework.boot:spring-boot-starter-webflux:${springBootVersion}")
+        implementation("org.springframework.boot:spring-boot-starter-aop:${springBootVersion}")
         implementation("org.springframework.boot:spring-boot-starter-test:${springBootVersion}")
 
         // note that the BOM coordinates are wrapped with the "platform" keyword

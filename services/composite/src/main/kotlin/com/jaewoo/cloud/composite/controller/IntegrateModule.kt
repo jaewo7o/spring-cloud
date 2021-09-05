@@ -1,6 +1,5 @@
 package com.jaewoo.cloud.composite.controller
 
-import com.fasterxml.jackson.databind.ObjectMapper
 import com.jaewoo.cloud.api.controller.IProductController
 import com.jaewoo.cloud.api.controller.IRecommendController
 import com.jaewoo.cloud.api.controller.IReviewController
@@ -13,8 +12,7 @@ import org.slf4j.Logger
 import org.slf4j.LoggerFactory
 import org.springframework.beans.factory.annotation.Value
 import org.springframework.core.ParameterizedTypeReference
-import org.springframework.http.HttpMethod
-import org.springframework.http.HttpStatus
+import org.springframework.http.*
 import org.springframework.stereotype.Component
 import org.springframework.web.client.HttpClientErrorException
 import org.springframework.web.client.RestTemplate
@@ -73,7 +71,12 @@ class IntegrateModule(
         logger.info("======>3")
         try {
             val url = productServiceUrl
-            val product = restTemplate.postForObject(url, dto, ProductDto::class.java)
+
+            val headers = HttpHeaders()
+            headers.contentType = MediaType.APPLICATION_JSON
+            val httpEntity = HttpEntity<ProductDto>(dto, headers)
+
+            val product = restTemplate.postForObject(url, httpEntity, ProductDto::class.java)
             logger.info("#####################################################################")
             logger.info("createProduct: $url")
             logger.info("product: ${product.toString()}")
@@ -115,7 +118,12 @@ class IntegrateModule(
     override fun createRecommend(dto: RecommendDto): RecommendDto? {
         try {
             val url = recommendServiceUrl
-            val recommendDto = restTemplate.postForObject(url, dto, RecommendDto::class.java)
+
+            val headers = HttpHeaders()
+            headers.contentType = MediaType.APPLICATION_JSON
+            val httpEntity = HttpEntity<RecommendDto>(dto, headers)
+
+            val recommendDto = restTemplate.postForObject(url, httpEntity, RecommendDto::class.java)
             logger.info("#####################################################################")
             logger.info("createRecommend: $url")
             logger.info("recommendDto: $recommendDto")
@@ -164,7 +172,12 @@ class IntegrateModule(
             logger.info("review dto input : $dto")
 
             val url = reviewServiceUrl
-            val review = restTemplate.postForObject(url, dto, ReviewDto::class.java)
+
+            val headers = HttpHeaders()
+            headers.contentType = MediaType.APPLICATION_JSON
+            val httpEntity = HttpEntity<ReviewDto>(dto, headers)
+
+            val review = restTemplate.postForObject(url, httpEntity, ReviewDto::class.java)
             logger.info("#####################################################################")
             logger.info("createReview: $url")
             logger.info("review: $review")

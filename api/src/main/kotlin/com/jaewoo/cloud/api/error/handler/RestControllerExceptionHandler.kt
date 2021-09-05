@@ -3,15 +3,20 @@ package com.jaewoo.cloud.api.error.handler
 import com.jaewoo.cloud.api.error.ErrorResponse
 import com.jaewoo.cloud.api.error.exception.InvalidInputException
 import com.jaewoo.cloud.api.error.exception.NotfoundException
+import org.slf4j.Logger
+import org.slf4j.LoggerFactory
 import org.springframework.http.HttpStatus
 import org.springframework.http.server.reactive.ServerHttpRequest
 import org.springframework.web.bind.annotation.ExceptionHandler
 import org.springframework.web.bind.annotation.ResponseStatus
 import org.springframework.web.bind.annotation.RestControllerAdvice
 import java.lang.Exception
+import kotlin.math.log
 
 @RestControllerAdvice
 class RestControllerExceptionHandler {
+
+    private val logger = LoggerFactory.getLogger(this.javaClass)
 
     @ResponseStatus(HttpStatus.NOT_FOUND)
     @ExceptionHandler(NotfoundException::class)
@@ -30,6 +35,11 @@ class RestControllerExceptionHandler {
         request: ServerHttpRequest,
         ex: Exception
     ) : ErrorResponse {
+
+        logger.info("============================> start")
+        logger.error(ex.message, ex)
+        logger.info("============================> end")
+
         return ErrorResponse(
             httpStatus = httpStatus,
             path = request.path.pathWithinApplication().value(),
